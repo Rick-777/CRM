@@ -63,7 +63,7 @@
     name: "Aside",
     data() {
       return {
-        //isCollapse: false,
+        isCollapse: false,
         menuData: [
           {
             path: "/",

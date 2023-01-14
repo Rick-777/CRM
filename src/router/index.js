@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/common/Home.vue'
-import Customer from '@/views/Customer.vue'
-import Order from '@/views/Order.vue'
+
+import CommonCustomer from '@/components/pages/customer/CommonCustomer.vue'
+import CustomerList from '@/components/pages/customer/CustomerList.vue'
+import AllOrder from '@/components/pages/order/AllOrder.vue'
+import MyOrder from '@/components/pages/order/MyOrder.vue'
+
 
 Vue.use(Router)
 
@@ -14,14 +18,22 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/Customer',
-          name: 'Customer',
-          component: Customer
-        },{
-          path: '/Order',
-          name: 'Order',
-          component: Order
-        }
+          path: 'CommonCustomer',
+          name: 'commonCustomer',
+          component: CommonCustomer
+          }, {
+          path: 'CustomerList',
+          name: 'customerList',
+          component: CustomerList
+          }, {
+          path: 'AllOrder',
+          name: 'allOrder',
+          component: AllOrder
+          }, {
+          path: 'MyOrder',
+          name: 'myOrder',
+          component: MyOrder
+          }
       ]
     }
   ]

@@ -6,14 +6,17 @@
     </el-aside>
     <el-container>
       <el-header>Header</el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
   </div>
 </template>
 
 <script>
-import Aside from './Aside.vue'
+
+import Aside from '@/components/common/Aside.vue'
 
 export default {
     name: "HelloWorld",
@@ -22,8 +25,9 @@ export default {
             msg: "Welcome to Your Vue.js App"
         };
     },components: {
-      Aside
-    }
+    Aside
+    
+}
 }
 </script>
 <style scoped>
