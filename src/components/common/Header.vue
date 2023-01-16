@@ -1,7 +1,12 @@
 <template>
     <dev class="header-container">
         <div class="l-content">
-            <el-button icon="el-icon-menu" size="medium" style="margin-left:20px;"></el-button>
+            <el-button icon="el-icon-menu" 
+            size="medium" 
+            style="margin-left:20px;"
+            @click="handleMenu"
+            >
+        </el-button>
             <span class="firstPage">First Page</span>
         </div>
         <div class="r-content">

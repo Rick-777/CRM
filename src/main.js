@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/index.js'
+import store from '@/store';
 
 // 导入组件库
 import ElementUI from 'element-ui'
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
