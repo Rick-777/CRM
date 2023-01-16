@@ -5,8 +5,11 @@
       <Aside></Aside>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header><Header>
+        
+      </Header></el-header>
       <el-main>
+        <!-- Router's out-->
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -17,6 +20,7 @@
 <script>
 
 import Aside from '@/components/common/Aside.vue'
+import Header from '@/components/common/Header.vue'
 
 export default {
     name: "HelloWorld",
@@ -25,11 +29,13 @@ export default {
             msg: "Welcome to Your Vue.js App"
         };
     },components: {
-    Aside
-    
+    Aside,
+    Header
 }
 }
 </script>
 <style scoped>
-
+.el-header{
+  padding: 0 0;
+}
 </style>
