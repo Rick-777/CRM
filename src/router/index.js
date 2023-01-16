@@ -17,25 +17,29 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      redirect:'FirstPage',
+      redirect: 'FirstPage',
       children: [
         {
           path: '/FirstPage',
           name: 'firstPage',
           component: FirstPage
-          }, {
+        }, {
           path: 'CustomerList',
           name: 'customerList',
           component: CustomerList
-          }, {
+        }, , {
+          path: '/CommonCustomer',
+          name: 'commonCustomer',
+          component: CommonCustomer
+        }, {
           path: 'AllOrder',
           name: 'allOrder',
           component: AllOrder
-          }, {
+        }, {
           path: 'MyOrder',
           name: 'myOrder',
           component: MyOrder
-          }
+        }
       ]
     }
   ]
