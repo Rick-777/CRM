@@ -28,6 +28,13 @@ export default {
     name: 'Header',
     data() {
         return {}
+    },
+    methods:{
+        //Handle zoom in out to menu
+        handleMenu(){
+            console.log(111)
+            this.$store.commit('collapseChange')
+        }
     }
 }</script>
 
