@@ -11,8 +11,9 @@
                         <p class="access">Super Manager</p>
                     </div>
                 </div>
-                    <div>
-                        Login User Info
+                    <div class="login-info">
+                        <p>Last Login Time:<span>2023-1-19</span></p>
+                        <p>Last Login Location:<span>China</span></p>
                     </div>
                 </el-card>
             </el-col>
@@ -32,7 +33,8 @@ export default {
 <style lang="less" scoped>
     .user{
         padding-bottom: 20px;
-        border:1px solid #999;
+        margin-bottom: 20px;
+        border-bottom:1px solid #999;
         display: flex;
         align-items: center;
         img{
@@ -48,6 +50,17 @@ export default {
             }.access{
                 color:#999;
                 margin-top: 0px;
+            }
+        }
+    }
+    .login-info{
+        p{
+            font-size: 14px;
+            color:#999999;
+            line-height: 28px;
+            span{
+                color:#666666;
+                margin-left: 20px;
             }
         }
     }
