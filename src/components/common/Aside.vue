@@ -176,7 +176,6 @@
         // 过滤所有只有一级菜单的数据
         return this.menuData.filter((item) => !item.children);
       },isCollapse(){
-        console.log(this.$store.state.tab.isCollapse)
         return this.$store.state.tab.isCollapse
       }
     },

@@ -5,7 +5,7 @@ export default{
     },
     mutations:{
         collapseChange(state){
-            state.isCollapse = !state.collapseChange
+            state.isCollapse = !state.isCollapse
         }
     }
 }
