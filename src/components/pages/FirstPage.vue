@@ -27,9 +27,18 @@
                     </el-table>
                 </el-card>
             </el-col>
-            <el-col :span="16">
-                <div class="grid-content bg-purple-light"></div>
+            <el-col :span="16" style="padding-left: 10px">
+                <el-card class="box-card system_bulletin">
+                    <div slot="header" class="system_title">
+                        <span>系统公告</span>
+                    </div>
+                    <div v-for="item in systemData" :key="item.id" class="system_context item">
+                        <div>{{ item.title }}</div>
+                        <div><i :class="`el-icon-${item.icon}`"> {{ item.date }}</i></div>
+                    </div>
+                </el-card>
             </el-col>
+
         </el-row>
     </dev>
 </template>
@@ -54,7 +63,46 @@ export default {
                 date: '2016-05-03',
                 name: '王小虎',
                 address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            }],
+            systemData: [
+                {
+                    id: 1,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+                {
+                    id: 2,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+                {
+                    id: 3,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+                {
+                    id: 4,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+                {
+                    id: 5,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+                {
+                    id: 6,
+                    date: "2022-10-21 09:00",
+                    title: "【内部分享】如何建立良好的客户关系",
+                    icon: 'timer'
+                },
+            ]
+
         }
     }
 }</script>
@@ -97,6 +145,22 @@ export default {
             color: #666666;
             margin-left: 20px;
         }
+    }
+}
+
+.system_bulletin {
+    .system_title {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .system_context {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgb(242, 242, 242);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 </style>
