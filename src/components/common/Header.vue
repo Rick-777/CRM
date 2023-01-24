@@ -7,11 +7,12 @@
           style="margin-left: 20px"
           @click="handleMenu"
         ></el-button>
-        <el-breadcrumb separator="/" style="padding-left:20px;">
-          <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">
-            {{item.label}}
-          </el-breadcrumb-item>
-        </el-breadcrumb>
+        <el-breadcrumb separator="/">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+  <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+  <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+</el-breadcrumb>
       </div>
       <div class="r-content">
         <el-dropdown @command="handleCommand">
