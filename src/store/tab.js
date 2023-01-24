@@ -6,7 +6,7 @@ export default {
             {
                 path: '/',
                 name: 'firstPage',
-                label: 'firstPage',
+                label: 'First Page',
                 icon: 's-home',
                 url: 'firstPage'
             }
