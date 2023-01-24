@@ -8,6 +8,7 @@
         <el-header>
           <Header></Header>
         </el-header>
+        <CommonTab></CommonTab>
         <el-main>
           <!-- Router's out-->
           <router-view></router-view>
@@ -21,7 +22,7 @@
 
 import Aside from '@/components/common/Aside.vue'
 import Header from '@/components/common/Header.vue'
-
+import CommonTab from '@/components/common/CommonTab.vue'
 export default {
   name: "HelloWorld",
   data() {
@@ -30,7 +31,8 @@ export default {
     };
   }, components: {
     Aside,
-    Header
+    Header,
+    CommonTab
   }
 }
 </script>
