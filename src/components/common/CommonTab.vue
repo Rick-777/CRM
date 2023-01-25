@@ -4,6 +4,7 @@
         v-for="item in tags" 
         :key="item.path" 
         :effect="$router.name === item.name ? 'dark' : 'plain'"
+        @click="changeMenu(item)"
         >
             {{ item.label }}
         </el-tag>
@@ -19,7 +20,12 @@ export default {
         ...mapState({
             tags: (state) => state.tab.tabsList
         }),
-    },
+    },methods:{
+        changeMenu(item){
+            // Click tabs menu require dynamic router
+            this.$router.push(item.path)
+        }
+    }
 };
 </script>
 <style lang="less" scoped>
