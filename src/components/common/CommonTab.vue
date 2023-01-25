@@ -1,29 +1,35 @@
 <template>
     <div class="tabs">
-        <el-tag 
-        v-for="item in tags" 
-        :key="item.path" 
-        :effect="$router.name === item.name ? 'dark' : 'plain'"
-        @click="changeMenu(item)"
-        >
+        <el-tag v-for="(item, index) in tags" :key="item.path" :closable="item.name !== 'home'"
+            :effect="$route.name === item.name ? 'dark' : 'plain'" @click="changeMenu(item)"
+            @close="handleClose(item, index)">
             {{ item.label }}
         </el-tag>
     </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 export default {
-    name: 'commonTab',
-    dara() {
-        return {}
-    }, computed: {
+    name: "CommonTag",
+    data() {
+        return {};
+    },
+    computed: {
         ...mapState({
-            tags: (state) => state.tab.tabsList
-        }),
-    },methods:{
-        changeMenu(item){
-            // Click tabs menu require dynamic router
+            tags: (state) => state.tab.tabsList,
+        })
+    }, methods: {
+        ...mapMutations(['closeTag']),
+        changeMenu(item) {
             this.$router.push(item.path)
+        }, handleClose(item, index) {
+            this.closeTag(item)
+            const length = this.tags.length - 1;
+            //this.$router.push({name:this.tags[length].name})
+            if (item.name !== this.$route.name) {
+                return
+            }
+            this.$router.push({ name: this.tags[0].name })
         }
     }
 };
@@ -38,7 +44,7 @@ export default {
     box-shadow: 0 5px 10px #ddd;
     padding-bottom: 5px;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 5px;
 
     .el-tag {
         margin-right: 15px;

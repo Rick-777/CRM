@@ -24,6 +24,9 @@ export default {
                 }
                 
             }
+        },closeTag(state,val){
+            const index = state.tabsList.findIndex(item => item.name == val.name)
+            state.tabsList.splice(index,1)
         }
     }
 }
