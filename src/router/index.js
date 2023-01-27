@@ -7,6 +7,7 @@ import CustomerList from '@/components/pages/customer/CustomerList.vue'
 import AllOrder from '@/components/pages/order/AllOrder.vue'
 import MyOrder from '@/components/pages/order/MyOrder.vue'
 import FirstPage from '@/components/pages/FirstPage.vue'
+import Login from '@/components/common/Login.vue'
 
 
 Vue.use(Router)
@@ -41,6 +42,10 @@ export default new Router({
           component: MyOrder
         }
       ]
+    }, {
+      path: '/Login',
+      name: 'login',
+      component: Login,
     }
   ]
 })
