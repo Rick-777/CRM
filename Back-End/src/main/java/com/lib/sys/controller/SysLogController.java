@@ -1,9 +1,9 @@
 package com.lib.sys.controller;
 
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysLog;
-import com.wanshu.sys.model.SysLogQueryDTO;
-import com.wanshu.sys.service.ISysLogService;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysLog;
+import com.lib.sys.model.SysLogQueryDTO;
+import com.lib.sys.service.ISysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

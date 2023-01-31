@@ -1,9 +1,9 @@
-package com.wanshu.sys.service;
+package com.lib.sys.service;
 
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysLog;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysLog;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wanshu.sys.model.SysLogQueryDTO;
+import com.lib.sys.model.SysLogQueryDTO;
 
 /**
  * <p>

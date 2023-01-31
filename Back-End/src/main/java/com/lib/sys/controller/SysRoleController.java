@@ -2,11 +2,11 @@ package com.lib.sys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.wanshu.common.model.PageDTO;
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysRole;
-import com.wanshu.sys.model.SysRoleQueryDTO;
-import com.wanshu.sys.service.ISysRoleService;
+import com.lib.common.model.PageDTO;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysRole;
+import com.lib.sys.model.SysRoleQueryDTO;
+import com.lib.sys.service.ISysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

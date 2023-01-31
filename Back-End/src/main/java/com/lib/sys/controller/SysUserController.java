@@ -1,11 +1,11 @@
 package com.lib.sys.controller;
 
-import com.wanshu.common.execption.BizException;
-import com.wanshu.common.result.IgnoredResultWrapper;
-import com.wanshu.common.result.ResultWrapper;
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysUser;
-import com.wanshu.sys.model.SysUserQueryDTO;
+import com.lib.common.execption.BizException;
+import com.lib.common.result.IgnoredResultWrapper;
+import com.lib.common.result.ResultWrapper;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysUser;
+import com.lib.sys.model.SysUserQueryDTO;
 import com.wanshu.sys.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

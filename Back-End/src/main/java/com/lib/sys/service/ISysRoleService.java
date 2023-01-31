@@ -1,9 +1,9 @@
-package com.wanshu.sys.service;
+package com.lib.sys.service;
 
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysRole;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wanshu.sys.model.SysRoleQueryDTO;
+import com.lib.sys.model.SysRoleQueryDTO;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.wanshu.sys.model;
+package com.lib.sys.model;
 
-import com.wanshu.common.model.PageDTO;
-import com.wanshu.sys.entity.SysUser;
+import com.lib.common.model.PageDTO;
+import com.lib.sys.entity.SysUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
