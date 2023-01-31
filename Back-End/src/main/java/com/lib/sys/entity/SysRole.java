@@ -1,4 +1,4 @@
-package com.wanshu.sys.entity;
+package com.lib.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

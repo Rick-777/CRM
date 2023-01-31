@@ -1,4 +1,4 @@
-package com.wanshu.sys.controller;
+package com.lib.sys.controller;
 
 import com.wanshu.common.util.PageUtils;
 import com.wanshu.sys.entity.SysLog;

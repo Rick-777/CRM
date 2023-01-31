@@ -1,4 +1,4 @@
-package com.wanshu.sys.filter;
+package com.lib.sys.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.interfaces.DecodedJWT;
