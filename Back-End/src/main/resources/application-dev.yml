@@ -15,3 +15,28 @@ pool-prepared-statements: true
 max-pool-prepared-statement-per-connection-size: 20
 time-between-eviction-runs-millis: 60000
 min-evictable-idle-time-millis: 300000
+# MyBatisPlus的相关配置
+mybatis-plus:
+mapper-locations: classpath*:/mapper/*/*.xml
+global-config:
+#数据库相关配置
+db-config:
+#主键类型 AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一
+  ID)", UUID:"全局唯一ID UUID";
+id-type: AUTO
+logic-delete-value: -1
+logic-not-delete-value: 0
+logic-delete-field: is_deleted
+banner: false
+#原生配置
+configuration:
+map-underscore-to-camel-case: true
+cache-enabled: false
+call-setters-on-nulls: true
+jdbc-type-for-null: 'null'
+server:
+tomcat:
+uri-encoding: UTF-8
+servlet:
+context-path: /library
+port: 8086

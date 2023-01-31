@@ -1,8 +1,20 @@
 spring:
-profiles:
-active: dev
-application:
-name: 婉舒CRM系统
+datasource:
+type: com.alibaba.druid.pool.DruidDataSource
+druid:
+driver-class-name: com.mysql.cj.jdbc.Driver
+url: jdbc:mysql://localhost:3306/wanshu_crm?
+  serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=true&nullCatalogMeansCurrent=true
+username: root
+password: 123456
+initial-size: 10
+max-active: 100
+min-idle: 10
+max-wait: 60000
+pool-prepared-statements: true
+max-pool-prepared-statement-per-connection-size: 20
+time-between-eviction-runs-millis: 60000
+min-evictable-idle-time-millis: 300000
 # MyBatisPlus的相关配置
 mybatis-plus:
 mapper-locations: classpath*:/mapper/*/*.xml
@@ -14,7 +26,6 @@ db-config:
 id-type: AUTO
 logic-delete-value: -1
 logic-not-delete-value: 0
-
 logic-delete-field: is_deleted
 banner: false
 #原生配置
@@ -27,5 +38,5 @@ server:
 tomcat:
 uri-encoding: UTF-8
 servlet:
-context-path: /wanshu
+context-path: /library
 port: 8086
