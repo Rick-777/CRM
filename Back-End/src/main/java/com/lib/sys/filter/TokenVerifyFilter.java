@@ -2,8 +2,8 @@ package com.lib.sys.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.wanshu.common.constant.SystemConstant;
-import com.wanshu.common.result.JWTUtils;
+import com.lib.common.constant.SystemConstant;
+import com.lib.common.result.JWTUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

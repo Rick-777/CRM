@@ -1,6 +1,6 @@
-package com.wanshu.sys.service;
+package com.lib.sys.service;
 
-import com.wanshu.sys.entity.SysMenu;
+import com.lib.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

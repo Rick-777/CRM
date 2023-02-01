@@ -6,7 +6,7 @@ import com.lib.common.result.ResultWrapper;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysUser;
 import com.lib.sys.model.SysUserQueryDTO;
-import com.wanshu.sys.service.ISysUserService;
+import com.lib.sys.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.LifecycleState;
