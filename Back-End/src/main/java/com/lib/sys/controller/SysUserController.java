@@ -37,8 +37,24 @@ public class SysUserController {
 
     @ApiOperation(value = "查询系统用户",notes = "查询用户")
     @GetMapping("/list")
-    public PageUtils list(SysUserQueryDTO dto){
-        return userService.queryPage(dto);
+    public List<SysUser> list(){
+        return userService.list();
     }
 
+    @IgnoredResultWrapper
+    @ApiOperation(value = "查询系统用户1",notes = "查询用户1")
+    @GetMapping("/list1")
+    public List<SysUser> list1(){
+        return userService.list();
+    }
+
+    @ApiOperation(value = "查询系统用户2",notes = "查询用户2")
+    @GetMapping("/list2")
+    public ResultWrapper list2(){
+        ResultWrapper wrapper = new ResultWrapper();
+        wrapper.setCode("200");
+        wrapper.setData(userService.list());
+        wrapper.setMessage("Self define Result Wrapper");
+        return wrapper;
+    }
 }
