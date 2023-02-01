@@ -28,6 +28,7 @@ import java.util.List;
  * @since 2022-11-18
  */
 @Api(tags = "系统用户",value = "SysUser")
+@CrossOrigin
 @RestController
 @RequestMapping("/sys/sysUser")
 public class SysUserController {

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/index.js'
 import store from '@/store';
+import axios from 'axios'
 
 // 导入组件库
 import ElementUI from 'element-ui'
@@ -11,6 +12,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 // 配置ElementUI插件
 Vue.use(ElementUI)
+// Change internal http to axios
+Vue.prototype.$http = axios 
 
 Vue.config.productionTip = false
 
