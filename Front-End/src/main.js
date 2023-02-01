@@ -14,6 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI)
 // Change internal http to axios
 Vue.prototype.$http = axios 
+axios.defaults.baseURL="http://localhost:8086/lib"
 
 Vue.config.productionTip = false
 
