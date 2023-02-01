@@ -1,6 +1,6 @@
-package com.wanshu.sys.mapper;
+package com.lib.sys.mapper;
 
-import com.wanshu.sys.entity.SysMenu;
+import com.lib.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

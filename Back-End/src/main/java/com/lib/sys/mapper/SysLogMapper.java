@@ -1,6 +1,6 @@
-package com.wanshu.sys.mapper;
+package com.lib.sys.mapper;
 
-import com.wanshu.sys.entity.SysLog;
+import com.lib.sys.entity.SysLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

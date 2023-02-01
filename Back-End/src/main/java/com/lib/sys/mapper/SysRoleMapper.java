@@ -1,6 +1,6 @@
-package com.wanshu.sys.mapper;
+package com.lib.sys.mapper;
 
-import com.wanshu.sys.entity.SysRole;
+import com.lib.sys.entity.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 

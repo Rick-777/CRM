@@ -1,13 +1,13 @@
-package com.wanshu.sys.service.impl;
+package com.lib.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wanshu.common.annotation.SystemLog;
-import com.wanshu.common.util.PageUtils;
-import com.wanshu.sys.entity.SysRole;
-import com.wanshu.sys.mapper.SysRoleMapper;
-import com.wanshu.sys.model.SysRoleQueryDTO;
-import com.wanshu.sys.service.ISysRoleService;
+import com.lib.common.annotation.SystemLog;
+import com.lib.common.util.PageUtils;
+import com.lib.sys.entity.SysRole;
+import com.lib.sys.mapper.SysRoleMapper;
+import com.lib.sys.model.SysRoleQueryDTO;
+import com.lib.sys.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
