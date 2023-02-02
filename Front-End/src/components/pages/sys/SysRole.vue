@@ -26,7 +26,7 @@
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                         <el-button size="mini" type="danger"
                             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
@@ -54,13 +54,22 @@ export default {
             pageIndex: 1,
             pageSize: 5,
             totalPage: 0,
+            dataListLoading: false
         }
     }, methods: {
-        sizeChangeHandle() {
-
-        }, currentChangeHandle() {
-
+        sizeChangeHandle(val) {
+            // Change num of information in current page
+            this.pageSize = val;
+            this.pageIndex = 1;
+            this.getDataList()
+        }, currentChangeHandle(val) {
+            this.pageIndex = val;
+            this.getDataList();
         }, getDataList() {
+            if(this.dataListLoading){
+                return;
+            }
+            this.dataListLoading = true
             // Define params for finding
             const params = {
                 params: {
@@ -71,10 +80,14 @@ export default {
 
             }
             this.$http.get("/sys/sysRole/list", params).then((res) => {
-                console.log(res)
                 this.dataList = res.data.data.list;
                 this.totalPage = res.data.data.totalCount
+                this.dataListLoading = false
             })
+        },handleEdit(index,item){
+
+        },handleDelete(index,item){
+
         }
     },
     mounted() {
