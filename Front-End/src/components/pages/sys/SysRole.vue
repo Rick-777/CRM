@@ -60,6 +60,23 @@
 export default {
     name: 'sysRole',
     data() {
+        var checkRoleName = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('Please Enter Role Name'));
+            } else {
+                // Call back-end interface to check if role name exists
+                this.$http.get("/sys/sysRole/checkRoleName?roleName="+value).then((res) => {
+                    if(res.data.data === 'fail'){
+                        // Role Name does not exist, can be used
+                        callback();
+                    }else{
+                        callback(new Error('Role Name Exists'));
+                    }
+                    
+                })
+                
+            }
+        };
         return {
             dataForm: {
                 roleName: ''
@@ -77,7 +94,7 @@ export default {
             dialogFormSubmitVisible: false,
             rules: {
                 roleName: [
-                    { required: true, message: 'Please Enter Role Name', trigger: 'blur' }
+                    { validator: checkRoleName, trigger: 'blur' }
                 ], remark: [
                     { required: true, message: 'Please Enter Description', trigger: 'blur' }
                 ],

@@ -72,8 +72,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      *
      * @param roleName
      * @return
-     *    true 存在
-     *    false 不存在
+     *    true exist
+     *    false no exist
      */
     @Override
     public boolean checkRoleName(String roleName) {

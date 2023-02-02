@@ -55,12 +55,12 @@ public class SysRoleController {
     }
 
     /**
-     * 检查角色名称是否存在
+     * Check If Role Name Exists
      * @param roleName
      * @return
      *
      */
-    @ApiOperation(value = "检查角色名称是否存储",notes = "校验角色名称")
+    @ApiOperation(value = "Check If Role Name Exists",notes = "Check If Role Name Exists")
     @GetMapping("/checkRoleName")
     public String checkRoleName(String roleName){
         boolean flag = roleService.checkRoleName(roleName);
