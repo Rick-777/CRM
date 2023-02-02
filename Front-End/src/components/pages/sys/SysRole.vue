@@ -150,6 +150,9 @@ export default {
                     this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
                         // Close dialog
                         this.dialogFormVisible = false
+                        // Clear form
+                        this.dataDialogForm = []
+                        this.getDataList()
                     })
                 } else {
                     return false;
