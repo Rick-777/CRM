@@ -10,7 +10,7 @@
                     <el-button @click="getDataList">Find</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">Add</el-button>
+                    <el-button type="primary" @click="hadleSubmitFormData">Add</el-button>
                 </el-form-item>
             </el-form>
             <el-table :data="dataList" border style="width: 100%">
@@ -26,7 +26,8 @@
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                        <el-button size="mini" type="primary"
+                            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                         <el-button size="mini" type="danger"
                             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
@@ -36,8 +37,22 @@
                 :current-page="pageIndex" :page-sizes="[5, 10, 20, 50, 100]" :page-size="pageSize" :total="totalPage"
                 layout="total, sizes, prev, pager, next, jumper" style="margin-top:30px;">
             </el-pagination>
-
         </dev>
+
+        <el-dialog title="Add Role" width="35%" :visible.sync="dialogFormVisible">
+            <el-form :model="dataDialogForm">
+                <el-form-item label="Role Name" label-width="120px">
+                    <el-input v-model="dataDialogForm.roleName" placeholder="Role Name" style="width:300px"></el-input>
+                </el-form-item>
+                <el-form-item label="Description" label-width="120px">
+                    <el-input type="textarea" v-model="dataDialogForm.remark" style="width:300px"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="hadleSubmitFormData">确 定</el-button>
+            </div>
+        </el-dialog>
     </el-card>
 </template>
 
@@ -51,10 +66,15 @@ export default {
             }, dataList: [
 
             ],
+            dataDialogForm:{
+                
+            },
             pageIndex: 1,
             pageSize: 5,
             totalPage: 0,
-            dataListLoading: false
+            dataListLoading: false,
+            dialogFormVisible: false,
+            formLabelWidth: '120px'
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -66,7 +86,7 @@ export default {
             this.pageIndex = val;
             this.getDataList();
         }, getDataList() {
-            if(this.dataListLoading){
+            if (this.dataListLoading) {
                 return;
             }
             this.dataListLoading = true
@@ -84,10 +104,12 @@ export default {
                 this.totalPage = res.data.data.totalCount
                 this.dataListLoading = false
             })
-        },handleEdit(index,item){
+        }, handleEdit(index, item) {
 
-        },handleDelete(index,item){
+        }, handleDelete(index, item) {
 
+        },hadleSubmitFormData(){
+            this.dialogFormVisible = true
         }
     },
     mounted() {
