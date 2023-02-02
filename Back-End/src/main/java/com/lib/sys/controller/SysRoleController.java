@@ -25,7 +25,7 @@ import java.util.List;
  * @author 波哥
  * @since 2022-11-18
  */
-
+@CrossOrigin
 @Api(tags = "系统角色",value = "SysRole")
 @RestController
 @RequestMapping("/sys/sysRole")
