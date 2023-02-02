@@ -10,7 +10,7 @@
                     <el-button @click="getDataList">Find</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="hadleSubmitFormData">Add</el-button>
+                    <el-button type="primary" @click="openDialog">Add</el-button>
                 </el-form-item>
             </el-form>
             <el-table :data="dataList" border style="width: 100%">
@@ -40,11 +40,11 @@
         </dev>
 
         <el-dialog title="Add Role" width="35%" :visible.sync="dialogFormVisible">
-            <el-form :model="dataDialogForm">
-                <el-form-item label="Role Name" label-width="120px">
+            <el-form :model="dataDialogForm" :rules="rules">
+                <el-form-item label="Role Name" label-width="120px" prop="roleName">
                     <el-input v-model="dataDialogForm.roleName" placeholder="Role Name" style="width:300px"></el-input>
                 </el-form-item>
-                <el-form-item label="Description" label-width="120px">
+                <el-form-item label="Description" label-width="120px" prop="remark">
                     <el-input type="textarea" v-model="dataDialogForm.remark" style="width:300px"></el-input>
                 </el-form-item>
             </el-form>
@@ -66,15 +66,22 @@ export default {
             }, dataList: [
 
             ],
-            dataDialogForm:{
-                
+            dataDialogForm: {
+
             },
             pageIndex: 1,
             pageSize: 5,
             totalPage: 0,
             dataListLoading: false,
             dialogFormVisible: false,
-            dialogFormSubmitVisible: false,
+            dialogFormSubmitVisible: false, 
+            rules: {
+                roleName: [
+                    { required: true, message: 'Please Enter Role Name', trigger: 'blur' }
+                ],remark: [
+                    { required: true, message: 'Please Enter Description', trigger: 'blur' }
+                ],
+            }
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -108,18 +115,20 @@ export default {
 
         }, handleDelete(index, item) {
 
-        },hadleSubmitFormData(){
+        }, openDialog() {
             // Open dialog
             this.dialogFormVisible = true
+        },
+        hadleSubmitFormData() {
             this.addRole()
-            
-        },addRole(){
-            if(this.dialogFormSubmitVisible){
+
+        }, addRole() {
+            if (this.dialogFormSubmitVisible) {
                 return
             }
-            
+
             this.dialogFormSubmitVisible = true
-            this.$http.post('/sys/sysRole/save',this.dataDialogForm).then((res)=>{
+            this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
                 // Close dialog
                 this.dialogFormVisible = false
             })
