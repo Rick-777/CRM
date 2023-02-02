@@ -74,7 +74,7 @@ export default {
             totalPage: 0,
             dataListLoading: false,
             dialogFormVisible: false,
-            formLabelWidth: '120px'
+            dialogFormSubmitVisible: false,
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -109,7 +109,20 @@ export default {
         }, handleDelete(index, item) {
 
         },hadleSubmitFormData(){
+            // Open dialog
             this.dialogFormVisible = true
+            this.addRole()
+            
+        },addRole(){
+            if(this.dialogFormSubmitVisible){
+                return
+            }
+            
+            this.dialogFormSubmitVisible = true
+            this.$http.post('/sys/sysRole/save',this.dataDialogForm).then((res)=>{
+                // Close dialog
+                this.dialogFormVisible = false
+            })
         }
     },
     mounted() {

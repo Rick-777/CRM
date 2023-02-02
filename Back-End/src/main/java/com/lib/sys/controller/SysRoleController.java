@@ -40,8 +40,8 @@ public class SysRoleController {
         return roleService.queryPage(queryDTO);
     }
 
-    @ApiOperation(value = "添加角色",notes = "添加角色")
-    @PostMapping("/save")
+    @ApiOperation(value = "Add Role",notes = "Add Role")
+    @GetMapping("/save")
     public String save(@RequestBody SysRole sysRole){
         roleService.saveOrUpdateRole(sysRole);
 
