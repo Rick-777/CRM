@@ -40,7 +40,7 @@
         </dev>
 
         <el-dialog title="Add Role" width="35%" :visible.sync="dialogFormVisible">
-            <el-form :model="dataDialogForm" :rules="rules">
+            <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                 <el-form-item label="Role Name" label-width="120px" prop="roleName">
                     <el-input v-model="dataDialogForm.roleName" placeholder="Role Name" style="width:300px"></el-input>
                 </el-form-item>
@@ -50,7 +50,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="hadleSubmitFormData">确 定</el-button>
+                <el-button type="primary" @click="hadleSubmitFormData('ruleForm')">确 定</el-button>
             </div>
         </el-dialog>
     </el-card>
@@ -74,11 +74,11 @@ export default {
             totalPage: 0,
             dataListLoading: false,
             dialogFormVisible: false,
-            dialogFormSubmitVisible: false, 
+            dialogFormSubmitVisible: false,
             rules: {
                 roleName: [
                     { required: true, message: 'Please Enter Role Name', trigger: 'blur' }
-                ],remark: [
+                ], remark: [
                     { required: true, message: 'Please Enter Description', trigger: 'blur' }
                 ],
             }
@@ -119,19 +119,26 @@ export default {
             // Open dialog
             this.dialogFormVisible = true
         },
-        hadleSubmitFormData() {
-            this.addRole()
+        hadleSubmitFormData(formName) {
+            this.addRole(formName)
 
-        }, addRole() {
-            if (this.dialogFormSubmitVisible) {
-                return
-            }
+        }, addRole(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    if (this.dialogFormSubmitVisible) {
+                        return
+                    }
 
-            this.dialogFormSubmitVisible = true
-            this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
-                // Close dialog
-                this.dialogFormVisible = false
-            })
+                    this.dialogFormSubmitVisible = true
+                    this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
+                        // Close dialog
+                        this.dialogFormVisible = false
+                    })
+                } else {
+                    return false;
+                }
+            });
+
         }
     },
     mounted() {
