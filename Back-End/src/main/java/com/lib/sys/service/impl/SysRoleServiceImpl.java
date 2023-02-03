@@ -85,15 +85,15 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return count > 0;
     }
 
-    @SystemLog("删除角色")
+    @SystemLog("deleteRole")
     @Override
     public boolean deleteRoleById(Long roleId) {
-        // 删除角色信息
-        // 如果这个角色分配给了 用户或者角色绑定了菜单。那么都不允许删除角色
-        // 查看该角色是否分配给了用户
+        // Delete role info
+        // If this role is allocated to user, or it binds to a menu, it is not allowed to delete the role
+        // Check If this role is allocated to user
         int count = this.baseMapper.checkRoleCanDelete(roleId);
         if(count == 0){
-            // 表示可以删除
+            // Is ok to delete
             this.baseMapper.deleteById(roleId);
         }
         return count == 0;

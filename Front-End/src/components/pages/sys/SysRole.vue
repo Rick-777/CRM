@@ -62,10 +62,10 @@ export default {
     name: 'sysRole',
     data() {
         var checkRoleName = (rule, value, callback) => {
-            if(this.dataDialogForm.roleId !== 0){
+            if (this.dataDialogForm.roleId !== 0) {
                 // Imply it is an edit
                 callback();
-            }else if (value === '') {
+            } else if (value === '') {
                 callback(new Error('Please Enter Role Name'));
             } else {
                 // Call back-end interface to check if role name exists
@@ -141,7 +141,41 @@ export default {
             this.dataDialogForm.roleName = item.roleName
             this.dataDialogForm.remark = item.remark
         }, handleDelete(index, item) {
+            // Delete role info
+            this.$confirm('This would delete this record permanently, continue?', 'Notice', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                if (this.dialogFormSubmitVisible) {
+                    return
+                }
+                this.dialogFormSubmitVisible = true
+                this.$http
+                .get("/sys/sysRole/deleteRole?roleId=" + item.roleId)
+                .then((res) => {
+                    if(res.data.data === '0'){
+                        // Indecate the data cannot be deleted
+                        this.$message({
+                        type: 'warning',
+                        message: 'This record cannot be deleted'
+                    });
+                    }else{
+                        this.$message({
+                        type: 'success',
+                        message: 'Success!'
+                    });
+                    }
+                    this.dialogFormSubmitVisible = false
+                    this.getDataList()
+                })
 
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         }, openDialog() {
             // Open dialog
             this.dialogFormVisible = true
@@ -165,6 +199,7 @@ export default {
                         return
                     }
                     this.dialogFormSubmitVisible = true
+
                     this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
                         // Close dialog
                         this.dialogFormVisible = false
