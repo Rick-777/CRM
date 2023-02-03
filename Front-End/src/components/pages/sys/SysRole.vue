@@ -39,8 +39,8 @@
             </el-pagination>
         </dev>
 
-        <el-dialog :title="dataDialogForm.roleId===0? 'Add Role': 'Edit Role'" width="35%"
-            :visible.sync="dialogFormVisible">
+        <el-dialog :title="dataDialogForm.roleId === 0 ? 'Add Role' : 'Edit Role'" width="35%"
+            :visible.sync="dialogFormVisible" @close="closeDialog()">
             <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                 <el-form-item label="Role Name" label-width="120px" prop="roleName">
                     <el-input v-model="dataDialogForm.roleName" placeholder="Role Name" style="width:300px"></el-input>
@@ -62,7 +62,10 @@ export default {
     name: 'sysRole',
     data() {
         var checkRoleName = (rule, value, callback) => {
-            if (value === '') {
+            if(this.dataDialogForm.roleId !== 0){
+                // Imply it is an edit
+                callback();
+            }else if (value === '') {
                 callback(new Error('Please Enter Role Name'));
             } else {
                 // Call back-end interface to check if role name exists
@@ -142,17 +145,25 @@ export default {
         }, openDialog() {
             // Open dialog
             this.dialogFormVisible = true
+            this.dataDialogForm.roleId = 0
+            this.dataDialogForm.roleName = ''
+            this.dataDialogForm.remark = ''
+        }, closeDialog() {
+            // Clear form
+            this.dataDialogForm = {
+                roleId: 0,
+                roleName: "",
+                remark: ""
+            }
         },
         hadleSubmitFormData(formName) {
-            this.addRole(formName)
-
-        }, addRole(formName) {
+            this.updateRole(formName)
+        }, updateRole(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if (this.dialogFormSubmitVisible) {
                         return
                     }
-
                     this.dialogFormSubmitVisible = true
                     this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
                         // Close dialog
@@ -163,6 +174,7 @@ export default {
                             roleName: "",
                             remark: ""
                         }
+                        this.dialogFormSubmitVisible = false
                         this.getDataList()
                     })
                 } else {

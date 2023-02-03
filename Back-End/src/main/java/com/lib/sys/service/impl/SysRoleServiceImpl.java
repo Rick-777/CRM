@@ -43,7 +43,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @SystemLog("添加或更新角色")
     @Override
     public void saveOrUpdateRole(SysRole role) {
-        // 判断 角色编号是否存在，如果存在就走更新的逻辑否则新增数据
+        // Determine if roleId exists, update if exists, else save
         if(role.getRoleId() != null && role.getRoleId() != 0){
             // 表示更新操作
             this.update(role);
