@@ -45,6 +45,12 @@ public class JWTUtils {
      *     DecodedJWT  可以用来获取用户信息
      */
     public static DecodedJWT verify(String token){
-        return JWT.require(Algorithm.HMAC256(SECERT)).build().verify(token);
+        DecodedJWT verify = null;
+        try{
+            verify = JWT.require(Algorithm.HMAC256(SECERT)).build().verify(token);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return verify;
     }
 }
