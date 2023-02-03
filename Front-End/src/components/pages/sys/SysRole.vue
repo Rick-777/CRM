@@ -39,7 +39,8 @@
             </el-pagination>
         </dev>
 
-        <el-dialog title="Add Role" width="35%" :visible.sync="dialogFormVisible">
+        <el-dialog :title="dataDialogForm.roleId===0? 'Add Role': 'Edit Role'" width="35%"
+            :visible.sync="dialogFormVisible">
             <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                 <el-form-item label="Role Name" label-width="120px" prop="roleName">
                     <el-input v-model="dataDialogForm.roleName" placeholder="Role Name" style="width:300px"></el-input>
@@ -65,16 +66,16 @@ export default {
                 callback(new Error('Please Enter Role Name'));
             } else {
                 // Call back-end interface to check if role name exists
-                this.$http.get("/sys/sysRole/checkRoleName?roleName="+value).then((res) => {
-                    if(res.data.data === 'fail'){
+                this.$http.get("/sys/sysRole/checkRoleName?roleName=" + value).then((res) => {
+                    if (res.data.data === 'fail') {
                         // Role Name does not exist, can be used
                         callback();
-                    }else{
+                    } else {
                         callback(new Error('Role Name Exists'));
                     }
-                    
+
                 })
-                
+
             }
         };
         return {
@@ -84,7 +85,9 @@ export default {
 
             ],
             dataDialogForm: {
-
+                roleId: 0,
+                roleName: "",
+                remark: ""
             },
             pageIndex: 1,
             pageSize: 5,
@@ -129,7 +132,11 @@ export default {
                 this.dataListLoading = false
             })
         }, handleEdit(index, item) {
-
+            // Open renew dialog
+            this.dialogFormVisible = true
+            this.dataDialogForm.roleId = item.roleId
+            this.dataDialogForm.roleName = item.roleName
+            this.dataDialogForm.remark = item.remark
         }, handleDelete(index, item) {
 
         }, openDialog() {
@@ -151,7 +158,11 @@ export default {
                         // Close dialog
                         this.dialogFormVisible = false
                         // Clear form
-                        this.dataDialogForm = []
+                        this.dataDialogForm = {
+                            roleId: 0,
+                            roleName: "",
+                            remark: ""
+                        }
                         this.getDataList()
                     })
                 } else {
