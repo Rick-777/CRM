@@ -40,7 +40,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return new PageUtils(page);
     }
 
-    @SystemLog("添加或更新角色")
+    @SystemLog("Save Or Update Role")
     @Override
     public void saveOrUpdateRole(SysRole role) {
         // Determine if roleId exists, update if exists, else save
@@ -85,7 +85,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return count > 0;
     }
 
-    @SystemLog("deleteRole")
+    @SystemLog("Delete Role")
     @Override
     public boolean deleteRoleById(Long roleId) {
         // Delete role info
