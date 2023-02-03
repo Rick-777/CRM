@@ -11,6 +11,7 @@ import Login from '@/components/common/Login.vue'
 import SysUser from '@/components/pages/sys/SysUser.vue'
 import SysRole from '@/components/pages/sys/SysRole.vue'
 import SysMenu from '@/components/pages/sys/SysMenu.vue'
+import SysLog from '@/components/pages/sys/SysLog.vue'
 
 
 Vue.use(Router)
@@ -55,6 +56,10 @@ export default new Router({
           path: 'SysMenu',
           name: 'sysMenu',
           component: SysMenu
+        }, {
+          path: 'SysLog',
+          name: 'sysLog',
+          component: SysLog
         }
       ]
     }, {

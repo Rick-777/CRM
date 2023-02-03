@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 public class SysLogQueryDTO extends PageDTO {
-    @ApiModelProperty("查询字段")
+    @ApiModelProperty("Query Log")
     private String msg;
 }

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysLog;
-import com.wanshu.sys.mapper.SysLogMapper;
+import com.lib.sys.mapper.SysLogMapper;
 import com.lib.sys.model.SysLogQueryDTO;
 import com.lib.sys.service.ISysLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

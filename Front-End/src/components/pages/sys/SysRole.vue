@@ -137,6 +137,7 @@ export default {
         }, handleEdit(index, item) {
             // Open renew dialog
             this.dialogFormVisible = true
+            // Bind data to update
             this.dataDialogForm.roleId = item.roleId
             this.dataDialogForm.roleName = item.roleName
             this.dataDialogForm.remark = item.remark
