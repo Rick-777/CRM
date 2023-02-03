@@ -1,8 +1,8 @@
-package com.wanshu.sys.service.impl;
+package com.lib.sys.service.impl;
 
-import com.wanshu.sys.entity.SysMenu;
-import com.wanshu.sys.mapper.SysMenuMapper;
-import com.wanshu.sys.service.ISysMenuService;
+import com.lib.sys.entity.SysMenu;
+import com.lib.sys.mapper.SysMenuMapper;
+import com.lib.sys.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
