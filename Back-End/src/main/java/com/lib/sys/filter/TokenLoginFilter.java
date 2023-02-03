@@ -1,6 +1,7 @@
 package com.lib.sys.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.lib.common.result.JWTUtils;
 import com.lib.sys.entity.SysUser;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -66,8 +70,23 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
      * @throws ServletException
      */
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        //Generate token info
+        Map<String,String> map = new HashMap<>();
+        map.put("username",authResult.getName());
+        String token = JWTUtils.getToken(map);
+        // Give token to client
+        response.addHeader("Authorization","rick"+token);
+        response.setContentType("application/json;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        PrintWriter writer = response.getWriter();
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("code", HttpServletResponse.SC_OK);
+        resultMap.put("msg", "Pass Auth");
+        writer.write(JSON.toJSONString(resultMap));
+        writer.flush();
+        writer.close();
     }
 
     /**
