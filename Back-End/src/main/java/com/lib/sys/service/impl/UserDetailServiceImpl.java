@@ -1,9 +1,9 @@
-package com.wanshu.sys.service.impl;
+package com.lib.sys.service.impl;
 
-import com.wanshu.sys.entity.SysRole;
-import com.wanshu.sys.entity.SysUser;
-import com.wanshu.sys.service.ISysRoleService;
-import com.wanshu.sys.service.ISysUserService;
+import com.lib.sys.entity.SysRole;
+import com.lib.sys.entity.SysUser;
+import com.lib.sys.service.ISysRoleService;
+import com.lib.sys.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 认证校验的方法
+ * Verify service
  */
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -29,7 +29,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     ISysRoleService sysRoleService;
 
     /**
-     * 完成账号的校验
+     * Complete verification of account
      * @param username
      * @return
      * @throws UsernameNotFoundException
