@@ -26,7 +26,7 @@ public class SysLogAspect {
     @Autowired
     ISysLogService sysLogService;
 
-    @Pointcut("@annotation(com.lib.common.SysLog)")
+    @Pointcut("@annotation(com.lib.common.annotation.SystemLog)")
     public void logPointcut(){
 
     }

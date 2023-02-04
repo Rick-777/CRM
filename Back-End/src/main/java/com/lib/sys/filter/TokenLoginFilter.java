@@ -1,6 +1,7 @@
 package com.lib.sys.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.lib.common.constant.SystemConstant;
 import com.lib.common.result.JWTUtils;
 import com.lib.sys.entity.SysUser;
 import lombok.SneakyThrows;
@@ -44,11 +45,10 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             sysUser = JSON.parseObject(loginInfo, SysUser.class);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     sysUser.getUsername(),sysUser.getPassword());
-            return authenticationManager.authenticate(authenticationToken);;
+            return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
     private String getRequestJSON(HttpServletRequest request) throws IOException {
         BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -77,7 +77,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         map.put("username",authResult.getName());
         String token = JWTUtils.getToken(map);
         // Give token to client
-        response.addHeader("Authorization","rick"+token);
+        response.addHeader("Authorization", SystemConstant.SYS_TOKEN_PREFIX +token);
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = response.getWriter();
@@ -99,6 +99,14 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
      */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
+        response.setContentType("application/json;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        PrintWriter writer = response.getWriter();
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("code", HttpServletResponse.SC_UNAUTHORIZED);
+        resultMap.put("msg", "Wrong Username or Password");
+        writer.write(JSON.toJSONString(resultMap));
+        writer.flush();
+        writer.close();
     }
 }
