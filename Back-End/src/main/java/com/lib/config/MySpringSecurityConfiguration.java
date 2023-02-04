@@ -11,6 +11,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * Configuration of Spring Security
@@ -33,6 +39,9 @@ public class MySpringSecurityConfiguration extends WebSecurityConfigurerAdapter 
         http.csrf().disable().authorizeRequests().anyRequest()
                 .authenticated()
                 .and()
+                // Set cross-domain handle
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .addFilter(new TokenLoginFilter(super.authenticationManager()))
                 .addFilter(new TokenVerifyFilter(super.authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -42,5 +51,18 @@ public class MySpringSecurityConfiguration extends WebSecurityConfigurerAdapter 
         String password = "123456";
         System.out.println(new BCryptPasswordEncoder().encode(password).toString());
 
+    }
+
+    // Set up cross domain info
+    CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration config = new CorsConfiguration();
+        // Setting cross-domain block
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("*"));
+        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setMaxAge(3600l);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",config);
+        return source;
     }
 }

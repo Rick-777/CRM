@@ -21,7 +21,6 @@ import java.util.List;
  * @since 2022-11-27
  */
 
-@CrossOrigin
 @Controller
 @RequestMapping("/sys/sysLog")
 public class SysLogController {

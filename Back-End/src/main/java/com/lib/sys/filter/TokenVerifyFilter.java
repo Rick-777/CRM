@@ -58,7 +58,7 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
             // Give releavent right to account
 
             UsernamePasswordAuthenticationToken authenticationToken
-                    = new UsernamePasswordAuthenticationToken(username,null,list);
+                    = new UsernamePasswordAuthenticationToken(username,"",list);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             // Allow the request
             chain.doFilter(request,response);
