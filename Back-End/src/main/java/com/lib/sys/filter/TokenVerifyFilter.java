@@ -6,6 +6,8 @@ import com.lib.common.constant.SystemConstant;
 import com.lib.common.result.JWTUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -16,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TokenVerifyFilter extends BasicAuthenticationFilter {
@@ -48,9 +52,13 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
             // Legal to get here
             // Obtain login account info
             String username = verify.getClaim("username").asString();
-            // Give releavent right ot account
+            List<GrantedAuthority> list = new ArrayList<>();
+            // Bind role to current user
+            list.add(new SimpleGrantedAuthority("ADMIN"));
+            // Give releavent right to account
+
             UsernamePasswordAuthenticationToken authenticationToken
-                    = new UsernamePasswordAuthenticationToken(username,null);
+                    = new UsernamePasswordAuthenticationToken(username,null,list);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             // Allow the request
             chain.doFilter(request,response);
