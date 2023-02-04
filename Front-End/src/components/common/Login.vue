@@ -41,7 +41,12 @@ export default {
                     this.$http.post('/login', this.form).then((res) => {
                         if(res.data.code === 200){
                             // Login Success
-                            console.log('ok')
+                            // 1. Save relevant token info from header
+                            sessionStorage.setItem("token",res.headers.authorization)
+                            sessionStorage.setItem("username",this.form.username)
+                            // 2. Route to main page
+                            this.$router.push("/")
+
                         }else{
                             // Login fail
                             this.$message.error(res.data.msg)
