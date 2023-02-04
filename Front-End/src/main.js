@@ -19,8 +19,9 @@ axios.defaults.baseURL="http://localhost:8086/lib"
 // Add axios interceptors for request
 axios.interceptors.request.use(config => {
   // For every request, a token is bought
-  var token = 'rickeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzEzODAzMDksInVzZXJuYW1lIjoiYWRtaW4ifQ.QXHL_tPQlijHzHcCHEjqTx9tQWjrwQxUSd7xqw0f5lk';
+  var token = sessionStorage.getItem('token')
   config.headers['Authorization']=token // Request header with token
+  return config
 },error=>{
   return Promise.reject(error)
 })

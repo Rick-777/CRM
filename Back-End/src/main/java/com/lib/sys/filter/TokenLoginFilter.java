@@ -78,6 +78,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = JWTUtils.getToken(map);
         // Give token to client
         response.addHeader("Authorization", SystemConstant.SYS_TOKEN_PREFIX +token);
+        response.addHeader("Access-Control-Expose-Headers","Authorization");
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = response.getWriter();
@@ -100,7 +101,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = response.getWriter();
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("code", HttpServletResponse.SC_UNAUTHORIZED);

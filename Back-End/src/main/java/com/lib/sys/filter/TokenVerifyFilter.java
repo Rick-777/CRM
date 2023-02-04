@@ -72,7 +72,7 @@ public class TokenVerifyFilter extends BasicAuthenticationFilter {
     private static void responseLogin(HttpServletResponse response) throws IOException {
         // Verify fails -- inform the user to login
         response.setContentType("application/json;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = response.getWriter();
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("code", HttpServletResponse.SC_FORBIDDEN);

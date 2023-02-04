@@ -2,7 +2,8 @@
     <div class="login_container">
         <div class="login_form">
             <p class="login_title">婉舒客户关系管理系统</p>
-            <el-form :model="form" :rules="rules" status-icon label-width="100px" class="demo-ruleForm">
+            <el-form :model="form" :rules="rules" status-icon label-width="100px" class="demo-ruleForm"
+            ref="formName">
                 <el-form-item label="账号" prop="username">
                     <el-input v-model="form.username" placeholder="请输入账号"></el-input>
                 </el-form-item>
@@ -10,7 +11,7 @@
                     <el-input type="password" v-model="form.password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="medium">登录</el-button>
+                    <el-button type="primary" size="medium" @click="submitFormData">Login</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -32,7 +33,26 @@ export default {
                 ]
             }
         };
-    }
+    }, methods: {
+        // Submit data in login form
+        submitFormData(){
+            this.$refs['formName'].validate((valid) => {
+                if (valid) {
+                    this.$http.post('/login', this.form).then((res) => {
+                        if(res.data.code === 200){
+                            // Login Success
+                            console.log('ok')
+                        }else{
+                            // Login fail
+                            this.$message.error(res.data.msg)
+                        }
+                    })
+                } else {
+                    return false;
+                }
+            });
+        }
+    },
 };
 </script>
 <style lang="less" scoped>
