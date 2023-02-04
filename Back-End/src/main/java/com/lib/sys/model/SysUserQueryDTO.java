@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 public class SysUserQueryDTO extends PageDTO {
-    @ApiModelProperty("用户名称")
+    @ApiModelProperty("username")
     private String username;
 }

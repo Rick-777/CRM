@@ -84,9 +84,7 @@ export default {
         return {
             dataForm: {
                 roleName: ''
-            }, dataList: [
-
-            ],
+            }, dataList: [],
             dataDialogForm: {
                 roleId: 0,
                 roleName: "",

@@ -26,12 +26,12 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-/**User router hook to handle */
-router.beforeEach((to, from, next) => {
-  const username = sessionStorage.getItem('username')
-  if (to.name !== 'login' && !username) next({ name: 'login'})
-  else next()
-})
+// /**User router hook to handle */
+// router.beforeEach((to, from, next) => {
+//   const username = sessionStorage.getItem('username')
+//   if (to.name !== 'login' && !username) next({ name: 'login'})
+//   else next()
+// })
 
 Vue.config.productionTip = false
 
