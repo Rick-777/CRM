@@ -13,8 +13,8 @@
           <img class="user_img" src="@/assets/images/user1.png" />
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">个人信息</el-dropdown-item>
-          <el-dropdown-item command="b">退出</el-dropdown-item>
+          <el-dropdown-item command="a">Self Info</el-dropdown-item>
+          <el-dropdown-item command="b">Log Out</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -32,24 +32,24 @@ export default {
       //console.log(111)
       // 对菜单做缩放操作
       this.$store.commit("collapseChange");
-    }, handleCommand(commond) {
-      if ('b' === commond) {
-        this.$confirm('是否确认注销登录?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+    }, handleCommand(command) {
+      if('b' === command){
+        this.$confirm('Continue Log Out?', 'Notice', {
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
           type: 'warning'
         }).then(() => {
-          // 表示处理的是 注销操作
-          sessionStorage.clear(); // 清空存储的Token信息
-          // 然后跳转到登录页
-          this.$router.push("/Login")
+          // Handle log out
+        sessionStorage.clear(); // Clear token info
+        // Jump back to login page
+        this.$router.push("/Login")
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消注销'
-          });
+            message: 'Cancel Log Out'
+          });          
         });
-
+        
       }
     }
   }, computed: {

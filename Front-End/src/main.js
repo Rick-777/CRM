@@ -25,6 +25,7 @@ axios.interceptors.request.use(config => {
 },error=>{
   return Promise.reject(error)
 })
+
 /**User router hook to handle */
 router.beforeEach((to, from, next) => {
   const username = sessionStorage.getItem('username')
