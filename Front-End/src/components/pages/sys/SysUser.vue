@@ -38,8 +38,10 @@
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            <el-button size="mini" type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">Disable</el-button>
+                            <el-button size="mini" type="danger" v-if="scope.row.status === 1"
+                                @click="handleUpdateStatus(scope.$index, scope.row)">Disable</el-button>
+                            <el-button size="mini" type="success" v-if="scope.row.status !== 1"
+                                @click="handleUpdateStatus(scope.$index, scope.row)">Valid</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -54,7 +56,7 @@
                 <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                     <el-form-item label="Account" label-width="120px" prop="username">
                         <el-input v-model="dataDialogForm.username" placeholder="Account"
-                            style="width:300px"></el-input>
+                            :disabled="dataDialogForm.userId > 0" style="width:300px"></el-input>
                     </el-form-item>
                     <el-form-item v-if="dataDialogForm.userId === 0" label="Password" label-width="120px"
                         prop="password">
@@ -115,7 +117,12 @@ export default {
                 // Imply it is an edit
                 callback();
             } else if (value === "") {
-                callback(new Error('Please Enter Password'));
+                // Add user info
+                if (value === '') {
+                    callback(new Error("Please enter password"))
+                } else {
+                    callback()
+                }
             }
         };
         return {
@@ -163,10 +170,10 @@ export default {
             this.$http.get("/sys/sysUser/queryUserById?userId=" + row.userId).then((res) => {
                 var user = res.data.data;
                 this.dataDialogForm = {
-                    userId:user.userId,
-                    username:user.username,
-                    mobile:user.mobile,
-                    status:user.status
+                    userId: user.userId,
+                    username: user.username,
+                    mobile: user.mobile,
+                    status: user.status
                 }
                 // Open dialog
                 this.dialogFormVisible = true
@@ -176,7 +183,41 @@ export default {
                 userId: 0,
                 status: 1
             }
-        }, openDialog() {
+        }, handleUpdateStatus(index, row) {
+            var msg = row.status === 1 ? 'Forbidden' : 'Enable'
+            // Assemble form data
+            var userStatus = {
+                userId: row.userId,
+                status: row.status === 1 ? 0 : 1
+            }
+            this.$confirm('Continue' + msg + '?', 'Notice', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                type: 'warning'
+            }).then(() => {
+                if (this.dialogFormSubmitVisible) {
+                    return
+                }
+                this.dialogFormSubmitVisible = true
+                this.$http.post('/sys/sysUser/save', userStatus).then((res) => {
+                    // Close dialog
+                    this.dialogFormVisible = false
+                    // Clear form
+                    this.dataDialogForm = {
+                        userId: 0,
+                    }
+                    this.dialogFormSubmitVisible = false
+                    this.getDataList()
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Cancel' + msg
+                });
+            });
+
+        },
+        openDialog() {
             // Open dialog
             this.dialogFormVisible = true
         }, hadleSubmitFormData(formName) {
