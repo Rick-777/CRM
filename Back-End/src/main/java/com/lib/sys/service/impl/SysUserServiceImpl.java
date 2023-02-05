@@ -75,7 +75,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser user = new SysUser();
         user.setUserId(userId);
         List<SysUser> list = this.queryUser(user);
-        if (list != null && list.size()>0) return list.get(0);
+        if (list != null && list.size()>0) {
+            SysUser sysUser = list.get(0);
+            sysUser.setPassword(null);
+            return sysUser;
+        }
         return null;
     }
 
