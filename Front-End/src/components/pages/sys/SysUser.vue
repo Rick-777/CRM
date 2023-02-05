@@ -97,6 +97,12 @@ export default {
             dialogFormVisible:false,
             dataDialogForm: {
                 userId: 0,
+            },rules: {
+                username: [
+                    { validator: checkusername, trigger: 'blur' }
+                ], password: [
+                    { required: true, message: 'Please Enter Description', trigger: 'blur' }
+                ],
             }
         }
     }, methods: {

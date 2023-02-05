@@ -2,6 +2,7 @@ package com.lib.sys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.lib.common.constant.SystemConstant;
 import com.lib.common.model.PageDTO;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysRole;
@@ -63,6 +64,6 @@ public class SysRoleController {
     @GetMapping("/checkRoleName")
     public String checkRoleName(String roleName){
         boolean flag = roleService.checkRoleName(roleName);
-        return flag?"success":"fail";
+        return flag? SystemConstant.CHECK_SUCCESS :SystemConstant.CHECK_FAIL;
     }
 }

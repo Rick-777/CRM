@@ -20,4 +20,8 @@ public interface ISysUserService extends IService<SysUser> {
     List<SysUser> queryByUserName(String username);
 
     PageUtils queryPage(SysUserQueryDTO dto);
+
+    boolean checkUserName(String username);
+
+    void saveOrUpdateUser(SysUser sysUser);
 }

@@ -1,5 +1,6 @@
 package com.lib.sys.controller;
 
+import com.lib.common.constant.SystemConstant;
 import com.lib.common.execption.BizException;
 import com.lib.common.result.IgnoredResultWrapper;
 import com.lib.common.result.ResultWrapper;
@@ -11,11 +12,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -41,4 +39,17 @@ public class SysUserController {
         return userService.queryPage(dto);
     }
 
+    @ApiOperation(value = "Check if username exists",notes = "Check username")
+    @GetMapping("/checkUserName")
+    public String checkUserName(String username){
+        // flag == true username exists
+        boolean flag = userService.checkUserName(username);
+        return flag? SystemConstant.CHECK_SUCCESS :SystemConstant.CHECK_FAIL;
+    }
+
+    @ApiOperation(value = "Save Account",notes = "Save Account")
+    @GetMapping("/save")
+    public String save(@RequestBody SysUser sysUser){
+        userService.saveOrUpdateUser(sysUser);
+    }
 }
