@@ -53,4 +53,10 @@ public class SysUserController {
         userService.saveOrUpdateUser(sysUser);
         return "success";
     }
+
+    @ApiOperation(value = "Query By Id", notes = "Query By Id")
+    @GetMapping("/queryUserById")
+    public SysUser queryUserById(Long userId){
+        return userService.queryByUserId(userId);
+    }
 }

@@ -62,6 +62,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
     }
 
+    private List<SysUser> queryUser(SysUser user){
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq(StringUtils.isNotBlank(user.getUsername()),"username",user.getUsername())
+                .eq(StringUtils.isNotBlank(user.getEmail()),"email",user.getEmail())
+                .eq(StringUtils.isNotBlank(user.getMobile()),"mobile",user.getMobile())
+                .eq(user.getUserId() != null && user.getUserId()>0,"user_id",user.getUserId());
+        return this.baseMapper.selectList(wrapper);
+    }
+    @Override
+    public SysUser queryByUserId(Long userId) {
+        SysUser user = new SysUser();
+        user.setUserId(userId);
+        List<SysUser> list = this.queryUser(user);
+        if (list != null && list.size()>0) return list.get(0);
+        return null;
+    }
+
     public Long getCurrentUserId(){
         // Set up account to add data
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();

@@ -24,4 +24,6 @@ public interface ISysUserService extends IService<SysUser> {
     boolean checkUserName(String username);
 
     void saveOrUpdateUser(SysUser sysUser);
+
+    SysUser queryByUserId(Long userId);
 }
