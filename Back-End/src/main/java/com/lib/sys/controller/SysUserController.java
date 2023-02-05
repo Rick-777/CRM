@@ -48,8 +48,9 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "Save Account",notes = "Save Account")
-    @GetMapping("/save")
+    @PostMapping("/save")
     public String save(@RequestBody SysUser sysUser){
         userService.saveOrUpdateUser(sysUser);
+        return "success";
     }
 }

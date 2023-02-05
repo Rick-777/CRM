@@ -199,7 +199,7 @@ export default {
                     }
                     this.dialogFormSubmitVisible = true
 
-                    this.$http.post('/sys/sysUser/save', this.dataDialogForm).then((res) => {
+                    this.$http.post('/sys/sysRole/save', this.dataDialogForm).then((res) => {
                         // Close dialog
                         this.dialogFormVisible = false
                         // Clear form

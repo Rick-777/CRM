@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.management.Query;
 import java.time.LocalDateTime;
@@ -54,7 +55,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
             sysUser.setCreateUserId(this.getCurrentUserId());
             // Password needs to be encoded
-            
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String password = encoder.encode(sysUser.getPassword());
+            sysUser.setPassword(password);
+            this.save(sysUser);
         }
     }
 

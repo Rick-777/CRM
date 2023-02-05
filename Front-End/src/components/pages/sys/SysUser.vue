@@ -85,6 +85,29 @@
 export default {
     name: 'sysUser',
     data() {
+        var checkusername = (rule, value, callback) => {
+            if (this.dataDialogForm.userId !== 0) {
+                if (value === "") {
+                    callback(new Error('Please Enter Account'));
+                }
+                // Imply it is an edit
+                callback();
+            } else if (value === "") {
+                callback(new Error('Please Enter Account'));
+            } else {
+                // Call back-end interface to check if role name exists
+                this.$http.get("/sys/sysUser/checkUserName?username=" + value).then((res) => {
+                    if (res.data.data === 'fail') {
+                        // User Name does not exist, can be used
+                        callback();
+                    } else {
+                        callback(new Error('User Name Exists'));
+                    }
+
+                })
+
+            }
+        };
         return {
             dataForm: {
                 userName: ''
@@ -94,14 +117,14 @@ export default {
             pageSize: 5,
             totalPage: 0,
             dataListLoading: false,
-            dialogFormVisible:false,
+            dialogFormVisible: false,
             dataDialogForm: {
                 userId: 0,
-            },rules: {
+            }, rules: {
                 username: [
                     { validator: checkusername, trigger: 'blur' }
                 ], password: [
-                    { required: true, message: 'Please Enter Description', trigger: 'blur' }
+                    { required: true, message: 'Please Enter Password', trigger: 'blur' }
                 ],
             }
         }
@@ -114,10 +137,32 @@ export default {
         }, currentChangeHandle(val) {
             this.pageIndex = val;
             this.getDataList();
-        }, openDialog(){
+        }, openDialog() {
             // Open dialog
             this.dialogFormVisible = true
-        },getDataList() {
+        }, hadleSubmitFormData(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    if (this.dialogFormSubmitVisible) {
+                        return
+                    }
+                    this.dialogFormSubmitVisible = true
+
+                    this.$http.post('/sys/sysUser/save', this.dataDialogForm).then((res) => {
+                        // Close dialog
+                        this.dialogFormVisible = false
+                        // Clear form
+                        this.dataDialogForm = {
+                            userId: 0,
+                        }
+                        this.dialogFormSubmitVisible = false
+                        this.getDataList()
+                    })
+                } else {
+                    return false;
+                }
+            });
+        }, getDataList() {
             if (this.dataListLoading) {
                 return;
             }
