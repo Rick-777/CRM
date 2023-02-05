@@ -17,11 +17,20 @@
                 <el-table :data="dataList" border style="width: 100%">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
-                    <el-table-column prop="roleId" label="ID" width="150">
+                    <el-table-column prop="userId" label="ID" width="150">
                     </el-table-column>
-                    <el-table-column prop="userName" label="name" width="180">
+                    <el-table-column prop="userName" label="User name" width="180">
                     </el-table-column>
-                    <el-table-column prop="remark" label="remark" width="280">
+                    <el-table-column prop="email" label="Email" width="280">
+                    </el-table-column>
+                    <el-table-column prop="mobile" label="mobile" width="280">
+                    </el-table-column>
+                    <el-table-column prop="status" label="status" width="280">
+                        <template slot-scope="scope">
+                            <span>
+                                {{ scope.row.status==1?'Normal':"Disable" }}
+                            </span>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="createTime" label="createTime" width="180">
                     </el-table-column>
@@ -30,7 +39,7 @@
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                             <el-button size="mini" type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                @click="handleDelete(scope.$index, scope.row)">Disable</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -76,7 +85,7 @@ export default {
                 params: {
                     pageIndex: this.pageIndex,
                     pageSize: this.pageSize,
-                    userName: this.dataForm.userName
+                    username: this.dataForm.userName
                 }
 
             }
