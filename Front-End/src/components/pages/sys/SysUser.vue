@@ -54,13 +54,11 @@
                 <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                     <el-form-item label="Account" label-width="120px" prop="username">
                         <el-input v-model="dataDialogForm.username" placeholder="Account"
-                        :disabled="dataDialogForm.userId > 0"
-                        style="width:300px"></el-input>
+                            :disabled="dataDialogForm.userId > 0" style="width:300px"></el-input>
                     </el-form-item>
-                    <el-form-item v-if="dataDialogForm.userId === 0" label="Password" label-width="120px" prop="password">
-                        <el-input type="password" v-model="dataDialogForm.password" 
-                        
-                        style="width:300px"></el-input>
+                    <el-form-item v-if="dataDialogForm.userId === 0" label="Password" label-width="120px"
+                        prop="password">
+                        <el-input type="password" v-model="dataDialogForm.password" style="width:300px"></el-input>
                     </el-form-item>
                     <el-form-item label="Email" label-width="120px" prop="email">
                         <el-input v-model="dataDialogForm.email" placeholder="Email" style="width:300px"></el-input>
@@ -70,7 +68,8 @@
                     </el-form-item>
                     <el-form-item label="Status" label-width="120px" prop="status">
                         <el-select v-model="dataDialogForm.status" placeholder="Status">
-                            <el-option v-for="item in statusList" :label="item.label" :value="item.value" :key="item.value"></el-option>
+                            <el-option v-for="item in statusList" :label="item.label" :value="item.value"
+                                :key="item.value"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -89,6 +88,9 @@ export default {
     data() {
         var checkusername = (rule, value, callback) => {
             if (this.dataDialogForm.userId !== 0) {
+                if (value === "") {
+                    callback(new Error('Please Enter Username'));
+                }
                 // Imply it is an edit
                 callback();
             } else if (value === "") {
@@ -109,7 +111,7 @@ export default {
         };
         var checkpassword = (rule, value, callback) => {
             if (this.dataDialogForm.userId !== 0) {
-                
+
                 // Imply it is an edit
                 callback();
             } else if (value === "") {
@@ -126,13 +128,13 @@ export default {
             totalPage: 0,
             dataListLoading: false,
             dialogFormVisible: false,
-            statusList:[
+            statusList: [
                 {
-                    label:'Enable',
-                    value:1
-                },{
-                    label:'Forbidden',
-                    value:0
+                    label: 'Enable',
+                    value: 1
+                }, {
+                    label: 'Forbidden',
+                    value: 0
                 }
             ],
             dataDialogForm: {
@@ -140,6 +142,7 @@ export default {
                 status: 1
             }, rules: {
                 username: [
+                    { required: true, message: 'Please Enter Account', trigger: 'blur' },
                     { validator: checkusername, trigger: 'blur' }
                 ], password: [
                     { validator: checkpassword, trigger: 'blur' }
@@ -155,9 +158,9 @@ export default {
         }, currentChangeHandle(val) {
             this.pageIndex = val;
             this.getDataList();
-        }, handleEdit(index,row){
+        }, handleEdit(index, row) {
             // Get user info from user id, write it back to dialog
-            this.$http.get("/sys/sysUser/queryUserById?userId="+row.userId).then((res) => {
+            this.$http.get("/sys/sysUser/queryUserById?userId=" + row.userId).then((res) => {
                 var user = res.data.data;
                 this.dataDialogForm.userId = user.userId
                 this.dataDialogForm.username = user.username
@@ -167,7 +170,12 @@ export default {
                 // Open dialog
                 this.dialogFormVisible = true
             })
-        },openDialog() {
+        }, closeDialog() {
+            this.dataDialogForm = {
+                userId: 0,
+                status: 1
+            }
+        }, openDialog() {
             // Open dialog
             this.dialogFormVisible = true
         }, hadleSubmitFormData(formName) {
