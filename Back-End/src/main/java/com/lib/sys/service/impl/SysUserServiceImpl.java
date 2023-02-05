@@ -49,6 +49,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void saveOrUpdateUser(SysUser sysUser) {
         if(sysUser.getUserId()>0){
             // Update
+            this.updateById(sysUser);
         }else{
             // Add
             sysUser.setCreateTime(LocalDateTime.now());

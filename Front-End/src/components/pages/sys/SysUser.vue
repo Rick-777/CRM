@@ -54,7 +54,7 @@
                 <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
                     <el-form-item label="Account" label-width="120px" prop="username">
                         <el-input v-model="dataDialogForm.username" placeholder="Account"
-                            :disabled="dataDialogForm.userId > 0" style="width:300px"></el-input>
+                            style="width:300px"></el-input>
                     </el-form-item>
                     <el-form-item v-if="dataDialogForm.userId === 0" label="Password" label-width="120px"
                         prop="password">
@@ -162,11 +162,12 @@ export default {
             // Get user info from user id, write it back to dialog
             this.$http.get("/sys/sysUser/queryUserById?userId=" + row.userId).then((res) => {
                 var user = res.data.data;
-                this.dataDialogForm.userId = user.userId
-                this.dataDialogForm.username = user.username
-                this.dataDialogForm.email = user.email
-                this.dataDialogForm.mobile = user.mobile
-                this.dataDialogForm.status = user.status
+                this.dataDialogForm = {
+                    userId:user.userId,
+                    username:user.username,
+                    mobile:user.mobile,
+                    status:user.status
+                }
                 // Open dialog
                 this.dialogFormVisible = true
             })
