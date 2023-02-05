@@ -67,8 +67,7 @@
                     </el-form-item>
                     <el-form-item label="Status" label-width="120px" prop="status">
                         <el-select v-model="dataDialogForm.status" placeholder="Status">
-                            <el-option label="Valid" value="1" selected></el-option>
-                            <el-option label="Disable" value="0"></el-option>
+                            <el-option v-for="item in statusList" :label="item.label" :value="item.value" :key="item.value"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -118,6 +117,15 @@ export default {
             totalPage: 0,
             dataListLoading: false,
             dialogFormVisible: false,
+            statusList:[
+                {
+                    label:'Enable',
+                    value:1
+                },{
+                    label:'Forbidden',
+                    value:0
+                }
+            ],
             dataDialogForm: {
                 userId: 0,
             }, rules: {
