@@ -28,7 +28,7 @@
                     <el-table-column prop="status" label="status" width="280">
                         <template slot-scope="scope">
                             <span>
-                                {{ scope.row.status==1?'Normal':"Disable" }}
+                                {{ scope.row.status == 1 ? 'Normal' : "Disable" }}
                             </span>
                         </template>
                     </el-table-column>
@@ -48,6 +48,35 @@
                     :total="totalPage" layout="total, sizes, prev, pager, next, jumper" style="margin-top:30px;">
                 </el-pagination>
             </dev>
+
+            <el-dialog :title="dataDialogForm.userId === 0 ? 'Add User' : 'Edit User'" width="35%"
+                :visible.sync="dialogFormVisible" @close="closeDialog()">
+                <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
+                    <el-form-item label="Account" label-width="120px" prop="username">
+                        <el-input v-model="dataDialogForm.username" placeholder="Account"
+                            style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Password" label-width="120px" prop="password">
+                        <el-input type="password" v-model="dataDialogForm.password" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Email" label-width="120px" prop="email">
+                        <el-input v-model="dataDialogForm.email" placeholder="Email" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Mobile" label-width="120px" prop="mobile">
+                        <el-input v-model="dataDialogForm.mobile" placeholder="Mobile" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Status" label-width="120px" prop="status">
+                        <el-select v-model="dataDialogForm.status" placeholder="Status">
+                            <el-option label="Valid" value="1" selected></el-option>
+                            <el-option label="Disable" value="0"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="hadleSubmitFormData('ruleForm')">确 定</el-button>
+                </div>
+            </el-dialog>
         </el-card>
     </dev>
 </template>
@@ -65,6 +94,10 @@ export default {
             pageSize: 5,
             totalPage: 0,
             dataListLoading: false,
+            dialogFormVisible:false,
+            dataDialogForm: {
+                userId: 0,
+            }
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -75,7 +108,10 @@ export default {
         }, currentChangeHandle(val) {
             this.pageIndex = val;
             this.getDataList();
-        }, getDataList() {
+        }, openDialog(){
+            // Open dialog
+            this.dialogFormVisible = true
+        },getDataList() {
             if (this.dataListLoading) {
                 return;
             }
@@ -95,7 +131,7 @@ export default {
                 this.dataListLoading = false
             })
         },
-    },mounter(){
+    }, mounter() {
         this.getDataList();
     }
 }</script>
