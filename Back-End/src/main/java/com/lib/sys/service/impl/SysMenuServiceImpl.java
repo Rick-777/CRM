@@ -77,4 +77,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             this.save(menu);
         }
     }
+
+    @Override
+    public SysMenu queryMenuById(Long menuId) {
+        return this.baseMapper.selectById(menuId);
+    }
 }

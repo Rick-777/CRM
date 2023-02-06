@@ -4,6 +4,8 @@ import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lib.sys.model.SysMenuQueryDTO;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -22,4 +24,6 @@ public interface ISysMenuService extends IService<SysMenu> {
     List<SysMenu> listParent();
 
     void saveOrUpdateMenu(SysMenu menu);
+
+    SysMenu queryMenuById(Long menuId);
 }

@@ -114,7 +114,23 @@ export default {
             this.pageIndex = val;
             this.getDataList();
         }, handleEdit(index, row) {
-
+            // Update data, query menu info by menu id
+            this.$http.get("/sys/sysMenu/queryMenuById?menuId=" + row.menuId).then((res) => {
+                // Collect data corrsponding to id
+                var menu = res.data.data.menu;
+                // Obtain all parent menu data
+                this.options = res.data.data.parents
+                this.dataDialogForm = {
+                    menuId:menu.menuId,
+                    label:menu.label,
+                    path:menu.path,
+                    icon:menu.icon,
+                    orderNum:menu.orderNum,
+                    parentId:menu.parentId
+                }
+                // Open dialog
+                this.dialogFormVisible = true
+            })
         }, closeDialog() {
 
         }, handleUpdateStatus(index, row) {

@@ -3,6 +3,7 @@ package com.lib.sys.controller;
 import com.lib.common.constant.SystemConstant;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysMenu;
+import com.lib.sys.model.MenuUpdateDTO;
 import com.lib.sys.model.SysMenuQueryDTO;
 import com.lib.sys.service.ISysMenuService;
 import io.swagger.annotations.ApiOperation;
@@ -43,5 +44,13 @@ public class SysMenuController {
         if(menu != null)
             menuService.saveOrUpdateMenu(menu);
         return SystemConstant.CHECK_SUCCESS;
+    }
+
+    @ApiOperation(value = "Query Menu Info by ID",notes = "Query Menu Info by ID")
+    @GetMapping("/queryMenuById")
+    public MenuUpdateDTO queryMenuById(Long menuId){
+        SysMenu sysMenu = menuService.queryMenuById(menuId);
+        List<SysMenu> parents = menuService.listParent();
+        return new MenuUpdateDTO(parents,sysMenu);
     }
 }
