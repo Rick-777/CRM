@@ -61,7 +61,7 @@
                     </el-form-item>
 
                     <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
-                        <el-select v-model="value" placeholder="请选择">
+                        <el-select v-model="dataDialogForm.parentId" placeholder="Empty if it is a parent menu" clearable="true">
                             <el-option v-for="item in options" :key="item.menuId" :label="item.label"
                                 :value="item.menuId">
                             </el-option>
@@ -116,7 +116,7 @@ export default {
         openDialog() {
             // Obtain data of all parent menu
             this.$http.get("/sys/sysMenu/listParent").then((res) => {
-                this.options = res.data.data.list;
+                this.options = res.data.data;
                 // Open dialog
             this.dialogFormVisible = true
             })

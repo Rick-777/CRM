@@ -54,6 +54,9 @@ public class SysMenu implements Serializable {
     @TableField(exist = false)
     private Boolean hasChildren = false;
 
+    @ApiModelProperty("label")
+    private String label;
+
     public Long getMenuId() {
         return menuId;
     }
@@ -139,5 +142,13 @@ public class SysMenu implements Serializable {
 
     public void setHasChildren(Boolean hasChildren) {
         this.hasChildren = hasChildren;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
