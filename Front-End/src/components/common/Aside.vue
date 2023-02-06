@@ -73,7 +73,7 @@
             url: "Home/Home",
           },
           {
-            label: "系统管理",
+            label: "System Management",
             icon: "user",
             name: "system",
             children: [

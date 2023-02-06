@@ -66,6 +66,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public void saveOrUpdateMenu(SysMenu menu) {
-        
+        if(menu.getMenuId()>0){
+            // Update
+
+        }else{
+            if(StringUtils.isNotBlank(menu.getLabel()) && StringUtils.isBlank(menu.getName()))
+                menu.setLabel(menu.getLabel());
+            if(menu.getParentId() == null) menu.setParentId(0l);
+            // Save
+            this.save(menu);
+        }
     }
 }

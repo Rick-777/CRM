@@ -62,7 +62,7 @@
 
                     <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
                         <el-select v-model="dataDialogForm.parentId" placeholder="Empty if it is a parent menu"
-                            clearable="true">
+                            clearable>
                             <el-option v-for="item in options" :key="item.menuId" :label="item.label"
                                 :value="item.menuId">
                             </el-option>
@@ -90,8 +90,6 @@ export default {
             }, rules: {
                 label: [
                     { required: true, message: 'Please Enter Menu Name', trigger: 'blur' }
-                ], path: [
-                    { required: true, message: 'Please Enter Router Address', trigger: 'blur' }
                 ], orderNum: [
                     { required: true, message: 'Please Enter Order Number', trigger: 'blur' }
                 ],

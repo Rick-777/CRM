@@ -7,11 +7,8 @@ import com.lib.sys.model.SysMenuQueryDTO;
 import com.lib.sys.service.ISysMenuService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -42,8 +39,9 @@ public class SysMenuController {
 
     @ApiOperation(value = "Save Menu Data",notes = "Save/Update Menu Data")
     @PostMapping("/save")
-    public String save(SysMenu menu){
-        menuService.saveOrUpdateMenu(menu);
+    public String save(@RequestBody SysMenu menu){
+        if(menu != null)
+            menuService.saveOrUpdateMenu(menu);
         return SystemConstant.CHECK_SUCCESS;
     }
 }
