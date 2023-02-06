@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
-    int canBeDeleted(@Param("menuId") Long menuId);
+    int canBeDeleted(Long menuId);
 }

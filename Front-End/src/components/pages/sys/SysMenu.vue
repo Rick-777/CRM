@@ -18,17 +18,17 @@
                     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
-                    <el-table-column prop="menuId" label="ID" width="150">
+                    <el-table-column prop="menuId" label="ID">
                     </el-table-column>
-                    <el-table-column prop="label" label="Menu name" width="180">
+                    <el-table-column prop="label" label="Menu name">
                     </el-table-column>
-                    <el-table-column prop="path" label="Path" width="280">
+                    <el-table-column prop="path" label="Path">
                     </el-table-column>
-                    <el-table-column prop="icon" label="Icon" width="280">
+                    <el-table-column prop="icon" label="Icon">
                     </el-table-column>
-                    <el-table-column prop="parent_id" label="Parent Menu ID" width="280">
+                    <el-table-column prop="parent_id" label="Parent Menu ID">
                     </el-table-column>
-                    <el-table-column label="Operation">
+                    <el-table-column label="Operation" width="160">
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -60,7 +60,7 @@
                             style="width:300px"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
+                    <el-form-item label="Parent Menu" label-width="160px" prop="parentId">
                         <el-select v-model="dataDialogForm.parentId" placeholder="Empty if it is a parent menu"
                             clearable>
                             <el-option v-for="item in options" :key="item.menuId" :label="item.label"
@@ -125,7 +125,7 @@ export default {
                 }
                 this.dialogFormSubmitVisible = true
                 this.$http
-                    .get("/sys/sysRole/deleteRole?roleId=" + item.roleId)
+                    .get("/sys/sysMenu/deleteMenu?menuId=" + item.menuId)
                     .then((res) => {
                         if (res.data.data === '0') {
                             // Indecate the data cannot be deleted
@@ -144,6 +144,7 @@ export default {
                     })
 
             }).catch(() => {
+                this.dialogFormSubmitVisible = false
                 this.$message({
                     type: 'info',
                     message: '已取消删除'

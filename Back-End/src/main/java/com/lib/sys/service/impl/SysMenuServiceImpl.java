@@ -88,6 +88,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return this.baseMapper.selectById(menuId);
     }
 
+    @SystemLog("Delete Menu")
     @Override
     public String deleteMenuById(Long menuId) {
         // Determine if data can be deleted
@@ -95,7 +96,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if(count == 0){
             // Can delete
             this.baseMapper.deleteById(menuId);
-            return count+"";
+            return "1";
         }
         return "0";
     }
