@@ -13,6 +13,9 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -77,6 +80,10 @@ public class SysLogAspect {
         sysLog.setTime(time);
         // Start time
         sysLog.setCreateDate(LocalDateTime.now());
+        // Record the operator
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        String userName = (String) token.getPrincipal();
+        sysLog.setUsername(userName);
         sysLogService.save(sysLog);
     }
 }

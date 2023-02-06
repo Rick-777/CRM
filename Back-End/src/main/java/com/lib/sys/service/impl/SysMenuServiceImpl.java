@@ -2,6 +2,7 @@ package com.lib.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lib.common.annotation.SystemLog;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysMenu;
 import com.lib.sys.mapper.SysMenuMapper;
@@ -64,6 +65,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     }
 
+    @SystemLog("Menu Update/Save")
     @Override
     public void saveOrUpdateMenu(SysMenu menu) {
         if(menu.getMenuId()>0){

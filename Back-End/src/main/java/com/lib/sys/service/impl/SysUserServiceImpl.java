@@ -3,6 +3,7 @@ package com.lib.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lib.common.annotation.SystemLog;
 import com.lib.common.constant.SystemConstant;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysUser;
@@ -45,6 +46,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return false;
     }
 
+    @SystemLog("User Save/Update")
     @Override
     public void saveOrUpdateUser(SysUser sysUser) {
         if(sysUser.getUserId()>0){
