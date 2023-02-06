@@ -20,4 +20,6 @@ public interface ISysMenuService extends IService<SysMenu> {
     PageUtils listPage(SysMenuQueryDTO dto);
 
     List<SysMenu> listParent();
+
+    void saveOrUpdateMenu(SysMenu menu);
 }

@@ -59,8 +59,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> listParent() {
         List<SysMenu> list = this.baseMapper.selectList(new QueryWrapper<SysMenu>().eq("parent_id", 0));
-        
+
         return list;
 
+    }
+
+    @Override
+    public void saveOrUpdateMenu(SysMenu menu) {
+        
     }
 }

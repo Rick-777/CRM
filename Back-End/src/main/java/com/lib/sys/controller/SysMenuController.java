@@ -1,5 +1,6 @@
 package com.lib.sys.controller;
 
+import com.lib.common.constant.SystemConstant;
 import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysMenu;
 import com.lib.sys.model.SysMenuQueryDTO;
@@ -7,6 +8,7 @@ import com.lib.sys.service.ISysMenuService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +38,12 @@ public class SysMenuController {
     @GetMapping("/listParent")
     public List<SysMenu> listParent(){
         return menuService.listParent();
+    }
+
+    @ApiOperation(value = "Save Menu Data",notes = "Save/Update Menu Data")
+    @PostMapping("/save")
+    public String save(SysMenu menu){
+        menuService.saveOrUpdateMenu(menu);
+        return SystemConstant.CHECK_SUCCESS;
     }
 }

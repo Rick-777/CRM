@@ -61,7 +61,8 @@
                     </el-form-item>
 
                     <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
-                        <el-select v-model="dataDialogForm.parentId" placeholder="Empty if it is a parent menu" clearable="true">
+                        <el-select v-model="dataDialogForm.parentId" placeholder="Empty if it is a parent menu"
+                            clearable="true">
                             <el-option v-for="item in options" :key="item.menuId" :label="item.label"
                                 :value="item.menuId">
                             </el-option>
@@ -86,6 +87,14 @@ export default {
         return {
             dataForm: {
                 label: ''
+            }, rules: {
+                label: [
+                    { required: true, message: 'Please Enter Menu Name', trigger: 'blur' }
+                ], path: [
+                    { required: true, message: 'Please Enter Router Address', trigger: 'blur' }
+                ], orderNum: [
+                    { required: true, message: 'Please Enter Order Number', trigger: 'blur' }
+                ],
             },
             dataList: [],
             pageIndex: 1,
@@ -118,11 +127,31 @@ export default {
             this.$http.get("/sys/sysMenu/listParent").then((res) => {
                 this.options = res.data.data;
                 // Open dialog
-            this.dialogFormVisible = true
+                this.dialogFormVisible = true
             })
-            
-        }, hadleSubmitFormData(formName) {
 
+        }, hadleSubmitFormData(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    if (this.dialogFormSubmitVisible) {
+                        return
+                    }
+                    this.dialogFormSubmitVisible = true
+
+                    this.$http.post('/sys/sysMenu/save', this.dataDialogForm).then((res) => {
+                        // Close dialog
+                        this.dialogFormVisible = false
+                        // Clear form
+                        this.dataDialogForm = {
+                            menuId: 0,
+                        }
+                        this.dialogFormSubmitVisible = false
+                        this.getDataList()
+                    })
+                } else {
+                    return false;
+                }
+            });
         }, getDataList() {
             if (this.dataListLoading) {
                 return;
