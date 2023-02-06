@@ -10,6 +10,7 @@ import com.lib.sys.model.SysMenuQueryDTO;
 import com.lib.sys.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,8 @@ import java.util.stream.Collectors;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
+    @Autowired
+    private SysMenuMapper menuMapper;
     /**
      * Query Every Menu Info
      * @param dto
@@ -87,9 +90,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public String deleteMenuById(Long menuId) {
-        // 1. Determine if data can be deleted
-        
-        // 2. If can, delete
-        return null;
+        // Determine if data can be deleted
+        int count = menuMapper.canBeDeleted(menuId);
+        if(count == 0){
+            // Can delete
+            this.baseMapper.deleteById(menuId);
+            return count+"";
+        }
+        return "0";
     }
 }
