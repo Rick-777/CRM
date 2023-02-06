@@ -84,4 +84,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public SysMenu queryMenuById(Long menuId) {
         return this.baseMapper.selectById(menuId);
     }
+
+    @Override
+    public String deleteMenuById(Long menuId) {
+        // 1. Determine if data can be deleted
+        
+        // 2. If can, delete
+        return null;
+    }
 }

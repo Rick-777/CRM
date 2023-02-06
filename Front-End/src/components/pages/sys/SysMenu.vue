@@ -32,8 +32,8 @@
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-
-
+                            <el-button size="mini" type="danger"
+                                @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -113,6 +113,42 @@ export default {
         }, currentChangeHandle(val) {
             this.pageIndex = val;
             this.getDataList();
+        }, handleDelete(index, row) {
+            // Delete role info
+            this.$confirm('This would delete this record permanently, continue?', 'Notice', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                if (this.dialogFormSubmitVisible) {
+                    return
+                }
+                this.dialogFormSubmitVisible = true
+                this.$http
+                    .get("/sys/sysRole/deleteRole?roleId=" + item.roleId)
+                    .then((res) => {
+                        if (res.data.data === '0') {
+                            // Indecate the data cannot be deleted
+                            this.$message({
+                                type: 'warning',
+                                message: 'This record cannot be deleted'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'success',
+                                message: 'Success!'
+                            });
+                        }
+                        this.dialogFormSubmitVisible = false
+                        this.getDataList()
+                    })
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         }, handleEdit(index, row) {
             // Update data, query menu info by menu id
             this.$http.get("/sys/sysMenu/queryMenuById?menuId=" + row.menuId).then((res) => {
@@ -121,12 +157,12 @@ export default {
                 // Obtain all parent menu data
                 this.options = res.data.data.parents
                 this.dataDialogForm = {
-                    menuId:menu.menuId,
-                    label:menu.label,
-                    path:menu.path,
-                    icon:menu.icon,
-                    orderNum:menu.orderNum,
-                    parentId:menu.parentId
+                    menuId: menu.menuId, // Eject dialog to bind menuId to update
+                    label: menu.label,
+                    path: menu.path,
+                    icon: menu.icon,
+                    orderNum: menu.orderNum,
+                    parentId: menu.parentId
                 }
                 // Open dialog
                 this.dialogFormVisible = true

@@ -53,4 +53,11 @@ public class SysMenuController {
         List<SysMenu> parents = menuService.listParent();
         return new MenuUpdateDTO(parents,sysMenu);
     }
+
+    @ApiOperation(value = "Delete Menu",notes = "Delete Menu")
+    @GetMapping("/deleteMenu")
+    public String deleteMenu(Long menuId){
+        // return 0 if cannot delete
+        return menuService.deleteMenuById(menuId);
+    }
 }
