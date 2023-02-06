@@ -15,7 +15,7 @@
                     </el-form-item>
                 </el-form>
                 <el-table :data="dataList" border style="width: 100%" row-key="menuId"
-                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                    :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
                     <el-table-column prop="menuId" label="ID" width="150">
@@ -32,8 +32,8 @@
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            
-                            
+
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -42,7 +42,38 @@
                     :total="totalPage" layout="total, sizes, prev, pager, next, jumper" style="margin-top:30px;">
                 </el-pagination>
             </dev>
+            <el-dialog :title="dataDialogForm.menuId === 0 ? 'Add Menu' : 'Edit Menu'" width="35%"
+                :visible.sync="dialogFormVisible" @close="closeDialog()">
+                <el-form :model="dataDialogForm" :rules="rules" ref="ruleForm">
+                    <el-form-item label="Menu Name" label-width="120px" prop="label">
+                        <el-input v-model="dataDialogForm.label" placeholder="Menu Name" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Router Address" label-width="120px" prop="path">
+                        <el-input v-model="dataDialogForm.path" placeholder="Router Address"
+                            style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Icon" label-width="120px" prop="icon">
+                        <el-input v-model="dataDialogForm.icon" placeholder="Icon" style="width:300px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Order Number" label-width="120px" prop="orderNum">
+                        <el-input v-model="dataDialogForm.orderNum" placeholder="Order Number" type="number"
+                            style="width:300px"></el-input>
+                    </el-form-item>
 
+                    <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
+                        <el-select v-model="value" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="hadleSubmitFormData('ruleForm')">确 定</el-button>
+                </div>
+            </el-dialog>
         </el-card>
     </dev>
 </template>
@@ -51,7 +82,7 @@
 export default {
     name: 'sysMenu',
     data() {
-        
+
         return {
             dataForm: {
                 label: ''
@@ -63,9 +94,23 @@ export default {
             dataListLoading: false,
             dialogFormVisible: false,
             dataDialogForm: {
-                userId: 0,
-                status: 1
-            }, 
+                menuId: 0,
+            }, options: [{
+                value: '选项1',
+                label: '黄金糕'
+            }, {
+                value: '选项2',
+                label: '双皮奶'
+            }, {
+                value: '选项3',
+                label: '蚵仔煎'
+            }, {
+                value: '选项4',
+                label: '龙须面'
+            }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }],
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -77,17 +122,17 @@ export default {
             this.pageIndex = val;
             this.getDataList();
         }, handleEdit(index, row) {
-            
+
         }, closeDialog() {
-            
+
         }, handleUpdateStatus(index, row) {
-            
+
         },
         openDialog() {
             // Open dialog
             this.dialogFormVisible = true
         }, hadleSubmitFormData(formName) {
-            
+
         }, getDataList() {
             if (this.dataListLoading) {
                 return;
