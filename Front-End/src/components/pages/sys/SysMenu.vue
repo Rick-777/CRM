@@ -62,8 +62,8 @@
 
                     <el-form-item label="Parent Menu" label-width="120px" prop="parentId">
                         <el-select v-model="value" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label"
-                                :value="item.value">
+                            <el-option v-for="item in options" :key="item.menuId" :label="item.label"
+                                :value="item.menuId">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -95,22 +95,7 @@ export default {
             dialogFormVisible: false,
             dataDialogForm: {
                 menuId: 0,
-            }, options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
+            }, options: [],
         }
     }, methods: {
         sizeChangeHandle(val) {
@@ -129,8 +114,13 @@ export default {
 
         },
         openDialog() {
-            // Open dialog
+            // Obtain data of all parent menu
+            this.$http.get("/sys/sysMenu/listParent").then((res) => {
+                this.options = res.data.data.list;
+                // Open dialog
             this.dialogFormVisible = true
+            })
+            
         }, hadleSubmitFormData(formName) {
 
         }, getDataList() {

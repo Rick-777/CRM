@@ -5,6 +5,8 @@ import com.lib.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lib.sys.model.SysMenuQueryDTO;
 
+import java.util.List;
+
 /**
  * <p>
  * 菜单管理 服务类
@@ -16,4 +18,6 @@ import com.lib.sys.model.SysMenuQueryDTO;
 public interface ISysMenuService extends IService<SysMenu> {
 
     PageUtils listPage(SysMenuQueryDTO dto);
+
+    List<SysMenu> listParent();
 }
