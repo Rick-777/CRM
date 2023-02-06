@@ -1,7 +1,9 @@
 package com.lib.sys.service;
 
+import com.lib.common.util.PageUtils;
 import com.lib.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lib.sys.model.SysMenuQueryDTO;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysMenuService extends IService<SysMenu> {
 
+    PageUtils listPage(SysMenuQueryDTO dto);
 }
