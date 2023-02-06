@@ -51,6 +51,9 @@ public class SysMenu implements Serializable {
     @TableField(exist = false) // Represent this list is not in database
     private List<SysMenu> children;
 
+    @TableField(exist = false)
+    private Boolean hasChildren = false;
+
     public Long getMenuId() {
         return menuId;
     }
@@ -128,5 +131,13 @@ public class SysMenu implements Serializable {
 
     public void setChildren(List<SysMenu> children) {
         this.children = children;
+    }
+
+    public Boolean getHasChildren() {
+        return hasChildren;
+    }
+
+    public void setHasChildren(Boolean hasChildren) {
+        this.hasChildren = hasChildren;
     }
 }

@@ -35,15 +35,19 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // Query data of every first level menu, page is for these first level menus
         QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_id",0)
-                .like(StringUtils.isNotBlank(dto.getLabel()),"label",dto.getLabel());// Query every first level menu
+                .like(StringUtils.isNotBlank(dto.getLabel()),"label",dto.getLabel())
+                .orderByAsc("order_num");// Query every first level menu
         Page<SysMenu> page = this.page(dto.page(), wrapper);
         // Query second level of this first level
         List<SysMenu> list = page.getRecords();
         List<SysMenu> menus = list.stream().map(item -> {
+            // Has children menu
+            item.setHasChildren(true);
+
             Long menuId = item.getMenuId();
             // Query all second level menu by menuId
             QueryWrapper<SysMenu> wrapper1 = new QueryWrapper<>();
-            wrapper1.eq("parent_id",menuId);
+            wrapper1.eq("parent_id",menuId).orderByAsc("order_num");;
             List<SysMenu> subMenus = this.baseMapper.selectList(wrapper1);
             item.setChildren(subMenus);
             return item;
