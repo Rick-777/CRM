@@ -52,6 +52,9 @@ public class SysMenu implements Serializable {
     private List<SysMenu> children;
 
     @TableField(exist = false)
+    private boolean canBeDeleted = false; // Represent this record can be deleted
+
+    @TableField(exist = false)
     private Boolean hasChildren = false;
 
     @ApiModelProperty("label")
@@ -150,5 +153,13 @@ public class SysMenu implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public boolean isCanBeDeleted() {
+        return canBeDeleted;
+    }
+
+    public void setCanBeDeleted(boolean canBeDeleted) {
+        this.canBeDeleted = canBeDeleted;
     }
 }

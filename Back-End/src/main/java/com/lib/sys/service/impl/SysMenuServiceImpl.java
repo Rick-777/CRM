@@ -45,14 +45,21 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // Query second level of this first level
         List<SysMenu> list = page.getRecords();
         List<SysMenu> menus = list.stream().map(item -> {
-            // Has children menu
-            item.setHasChildren(true);
 
+            // Has children menu
             Long menuId = item.getMenuId();
+            // Determine if current menu can be deleted
+            int count = menuMapper.canBeDeleted(menuId);
+            item.setCanBeDeleted(count == 0);
             // Query all second level menu by menuId
             QueryWrapper<SysMenu> wrapper1 = new QueryWrapper<>();
             wrapper1.eq("parent_id",menuId).orderByAsc("order_num");;
             List<SysMenu> subMenus = this.baseMapper.selectList(wrapper1);
+            for (SysMenu subMenu : subMenus) {
+                // Determine if child menu is allocated
+                int i = menuMapper.canBeDeleted(subMenu.getMenuId());
+                subMenu.setCanBeDeleted(i==0);
+            }
             item.setChildren(subMenus);
             return item;
         }).collect(Collectors.toList());

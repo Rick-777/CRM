@@ -32,7 +32,7 @@
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary"
                                 @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            <el-button size="mini" type="danger"
+                            <el-button v-if="scope.row.canBeDeleted" size="mini" type="danger"
                                 @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
                         </template>
                     </el-table-column>
@@ -125,7 +125,7 @@ export default {
                 }
                 this.dialogFormSubmitVisible = true
                 this.$http
-                    .get("/sys/sysMenu/deleteMenu?menuId=" + item.menuId)
+                    .get("/sys/sysMenu/deleteMenu?menuId=" + row.menuId)
                     .then((res) => {
                         if (res.data.data === '0') {
                             // Indecate the data cannot be deleted
